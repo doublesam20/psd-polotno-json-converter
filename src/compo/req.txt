@@ -1,0 +1,14 @@
+x
+y
+height
+width
+type: image
+src (base64 url)
+id
+name
+
+
+
+To get heigth: top + bottom subtracted from height of the main file
+
+To get width: left + right subtracted from width of the main file

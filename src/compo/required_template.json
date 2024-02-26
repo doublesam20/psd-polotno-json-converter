@@ -1,0 +1,19 @@
+{
+    "width": 0,
+    "height": 0,
+    "fonts": [],
+    "pages": [
+        {
+            "id": "",
+            "name": "",
+            "width": 0,
+            "height": 0,
+            "x": 0,
+            "y": 0,
+            "type": "page",
+            "src": "page1.png"
+        }
+    ],
+    "unit": "px",
+    "dpi": 72
+}
