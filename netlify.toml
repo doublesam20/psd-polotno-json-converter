@@ -3,5 +3,6 @@
 #command = "netlify-lambda build lambda"
 
 [build]
-command = "npm run build"
+#command = "npm run build"
+command = "netlify-lambda build lambda"
 functions = "netlify/functions"
