@@ -1,3 +1,7 @@
+#[build]
+#functions = "lambda"
+#command = "netlify-lambda build lambda"
+
 [build]
-functions = "lambda"
-command = "netlify-lambda build lambda"
+command = "npm run build"
+functions = "netlify/functions"
