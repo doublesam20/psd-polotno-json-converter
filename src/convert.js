@@ -75,7 +75,17 @@ function generatePolotnoJsonOutput(input) {
         "width": input.width,
         "height": input.height,
         "fonts": [],
-        "pages": [],
+        "pages": [
+            {
+                "id": "page_1",
+                "children": [],
+                "width": "auto",
+                "height": "auto",
+                "background": "#FFFFFF",
+                "bleed": 0,
+                "duration": 5000
+            }
+        ],
         "unit": "px",
         "dpi": 72
     };
@@ -92,7 +102,7 @@ function generatePolotnoJsonOutput(input) {
         //     "src": child.imageBase64
         // };
 
-        let page = {
+        let children = {
             "id": child.id.toString(),
             "name": child.name,
             "width": input.width - (child.left + child.right),
@@ -103,7 +113,7 @@ function generatePolotnoJsonOutput(input) {
             "src": child.imageBase64
         };
 
-        output.pages.push(page);
+        output.pages[0].children.push(children);
     });
 
     return output;
