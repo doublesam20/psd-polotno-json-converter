@@ -10,5 +10,30 @@ name
 
 
 To get heigth: top + bottom subtracted from height of the main file
-
 To get width: left + right subtracted from width of the main file
+
+
+#Main File
+"width":552,
+"height":589,
+
+
+#Raw JSON
+"top":136,
+"left":112,
+"bottom":221,
+"right":438,
+
+
+#Converted JSON
+"width": 2,
+"height": 232,
+"x": 218.80924958375334,
+"y": 104.0743594204458,
+
+
+#Original PSD File
+x = 275.01px
+y = 179.24px
+width = 330px
+height = 89px

@@ -58,9 +58,9 @@ const convertPsdToJson = (psdFilePath) => {
 
         const psdJson = safeStringify(psd);
 
-        // const filename = `raw.json`;
-        // const outputPath = path.join('src/converted', filename);
-        // fs.writeFileSync(outputPath, psdJson);
+        const filename = `raw3.json`;
+        const outputPath = path.join('src/converted', filename);
+        fs.writeFileSync(outputPath, psdJson);
 
         console.log(`Converted PSD to JSON successfully.`);
 
@@ -70,7 +70,7 @@ const convertPsdToJson = (psdFilePath) => {
     }
 }
 
-function generatePolotnoJsonOutput(input) {
+function generatePolotnoJsonOutput1(input) {
     let output = {
         "width": input.width,
         "height": input.height,
@@ -118,6 +118,52 @@ function generatePolotnoJsonOutput(input) {
 
     return output;
 }
+
+function generatePolotnoJsonOutput(input) {
+    let output = {
+        "width": input.width,
+        "height": input.height,
+        "fonts": [],
+        "pages": [
+            {
+                "id": "page_1",
+                "children": [],
+                "width": "auto",
+                "height": "auto",
+                "background": "#FFFFFF",
+                "bleed": 0,
+                "duration": 5000
+            }
+        ],
+        "unit": "px",
+        "dpi": 72
+    };
+
+    input.children.forEach(child => {
+        let width = child.right - child.left;
+        let height = child.bottom - child.top;
+        // let x = child.left + width / 2;
+        // let y = input.height - (child.top + height / 2);
+        let x = child.left;
+        let y = child.top;
+
+        let children = {
+            "id": child.id.toString(),
+            "name": child.name,
+            "width": width,
+            "height": height,
+            "x": x,
+            "y": y,
+            "type": "image",
+            "src": child.imageBase64
+        };
+
+        output.pages[0].children.push(children);
+    });
+
+    return output;
+}
+
 
 
 module.exports = { convertPsdToJson, generatePolotnoJsonOutput };
