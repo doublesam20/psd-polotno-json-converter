@@ -4,8 +4,24 @@ const path = require('path');
 const { convertPsdToJson, generatePolotnoJsonOutput } = require('./convert');
 const fs = require('fs');
 const upload = multer({ dest: 'uploads/' });
+const cors = require('cors');
 
 const app = express();
+
+// Enable CORS
+app.use(cors());
+
+// app.use(cors({
+//   origin: 'http://localhost:3000'
+// }));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', ['http://localhost:3000', 'http://localhost:5000']);
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
 
 // Home route
 app.get('/', (req, res) => {
@@ -18,9 +34,6 @@ app.get('/', (req, res) => {
             <!-- Required meta tags -->
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
-
-            <!-- Bootstrap CSS -->
-            <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta1/css/bootstrap.min.css" rel="stylesheet">
 
             <title>Upload PSD</title>
         </head>
@@ -48,7 +61,7 @@ app.get('/', (req, res) => {
 
 // Upload route
 app.post('/upload', upload.single('psd'), async (req, res) => {
-    try {
+    // try {
         const now = new Date();
 
         const dateTime = now.toISOString().replace(/:/g, '-').replace('T', '_').split('.')[0];
@@ -78,10 +91,10 @@ app.post('/upload', upload.single('psd'), async (req, res) => {
             }
         });
 
-    } catch (error) {
-        console.error('Error processing PSD:', error.message);
-        res.status(500).json({ error: 'Error processing PSD' });
-    }
+    // } catch (error) {
+    //     console.error('Error processing PSD:', error.message);
+    //     res.status(500).json({ error: 'Error processing PSD' });
+    // }
 });
 
 app.listen(5000, () => console.log('Server started on port 5000'));
