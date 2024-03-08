@@ -61,7 +61,7 @@ app.get('/', (req, res) => {
 
 // Upload route
 app.post('/upload', upload.single('psd'), async (req, res) => {
-    // try {
+    try {
         const now = new Date();
 
         const dateTime = now.toISOString().replace(/:/g, '-').replace('T', '_').split('.')[0];
@@ -91,10 +91,10 @@ app.post('/upload', upload.single('psd'), async (req, res) => {
             }
         });
 
-    // } catch (error) {
-    //     console.error('Error processing PSD:', error.message);
-    //     res.status(500).json({ error: 'Error processing PSD' });
-    // }
+    } catch (error) {
+        console.error('Error processing PSD:', error.message);
+        res.status(500).json({ error: 'Error processing PSD' });
+    }
 });
 
 app.listen(5000, () => console.log('Server started on port 5000'));

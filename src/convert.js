@@ -104,7 +104,9 @@ function generatePolotnoJsonOutput(input) {
             "width": width,
             "height": height,
             "x": x,
-            "y": y
+            "y": y,
+            "opacity": 1,
+            "visible": true,
         };
 
         if (layer.hasOwnProperty('text')) {
@@ -113,7 +115,9 @@ function generatePolotnoJsonOutput(input) {
             children = assembleImageFormat(layer, children);
         }
 
-        outputPolotnoFormat.pages[0].children.push(children);
+        if (!layer.hidden){
+            outputPolotnoFormat.pages[0].children.push(children);
+        }
     });
 
     return outputPolotnoFormat;
@@ -149,17 +153,18 @@ function assembleTextFormat(layer, layerChildren) {
         "shadowOpacity": dropShadowEffect?.enabled ? dropShadowEffect?.opacity : 1,
         "text": layerText?.text,
         "placeholder": layerText.text,
-        "fontSize": layerText.style.fontSize,
+        "fontSize": Math.round(layerText.style.fontSize),
         "fontFamily": layerText.style.font.name,
-        "fontStyle": "normal",
-        "fontWeight": layerText.style.font.fauxBold ? "bold" : "normal",
+        "fontStyle": layerText.style.fauxItalic ? "italic" : "normal",
+        "fontWeight": layerText.style.fauxBold ? "bold" : "normal",
         "textDecoration": "",
         "fill": rgbToHex(layerText.style.fillColor),
         "align": layerText.paragraphStyle.justification,
         "strokeWidth": strokeEffect?.enabled ? strokeEffect?.size.value : 0,
         "stroke": strokeEffect?.enabled ? rgbToHex(strokeEffect.color) : '',
-        "lineHeight": 1.2,
-        "letterSpacing": layerText?.paragraphStyle.letterSpacing[0],
+        "lineHeight": 0.1,
+        // "letterSpacing": layerText?.paragraphStyle.letterSpacing[0],
+        "letterSpacing": 0.00,
         "backgroundEnabled": false,
         "backgroundColor": "#7ED321",
         "backgroundOpacity": 1,
@@ -290,16 +295,5 @@ function rgbToHex(colorObject) {
 
     return "#" + hexR + hexG + hexB;
 }
-
-// // Example usage:
-// const input = {
-//     "r": 35,
-//     "g": 38,
-//     "b": 108
-// };
-//
-// const hexColor = rgbToHex(input.r, input.g, input.b);
-// console.log(hexColor); // Output: #23266c
-
 
 module.exports = { convertPsdToJson, generatePolotnoJsonOutput };
